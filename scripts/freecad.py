@@ -74,6 +74,14 @@ def get_dimensions(model):
     }
     return dimensions
 
+# Takes in a part and exports it as an STL file at file_path
+# linear and angular deflection can be specified to alter the
+# quality of the output STL
+def export_part_as_stl(part, file_path, linear_deflection=0.1, angular_deflection=0.0523599):
+    # The lower Angular Deflection makes rounded features more precise in the mesh
+    mesh = MeshPart.meshFromShape(part, LinearDeflection=linear_deflection, AngularDeflection=angular_deflection)
+    mesh.write(file_path)
+
 
 if __name__=='__main__':
     dir_path = os.path.dirname(os.path.realpath(__file__))
